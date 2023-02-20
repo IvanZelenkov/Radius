@@ -1,4 +1,4 @@
-import { Box, TextField, Button } from "@mui/material";
+import { motion } from "framer-motion";
 
 const Login = ({ room, setRoom, username, setUsername, setLoggedIn }) => {
 
@@ -12,26 +12,35 @@ const Login = ({ room, setRoom, username, setUsername, setLoggedIn }) => {
 	};
 
 	return (
-		<Box sx={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }}>
-			<Box className="login_form">
-				<TextField
-					id="outlined-basic"
-					label="Room name"
-					value={room}
-					required={true}
-					onChange={(event) => setRoom(event.target.value)}
-				/>
-				<TextField
-					id="outlined-basic"
-					label="Username"
-					variant="outlined"
-					value={username}
-					required={true}
-					onChange={(event) => setUsername(event.target.value)}
-				/>
-				<Button variant="contained" color={"success"} onSubmit={checkForLogin}>Login</Button>
-			</Box>
-		</Box>
+		<motion.div exit={{ opacity: 0 }}>
+			<section id="entry-page">
+				<form onSubmit={checkForLogin}>
+					<h2>R A D I U S</h2>
+					<fieldset>
+						<legend>3 6 0 &#176;</legend>
+						<ul>
+							<li>
+								<label>Room:</label>
+								<input
+									type="text"
+									required
+									onChange={(event) => setRoom(event.target.value)}
+								/>
+							</li>
+							<li>
+								<label>Username:</label>
+								<input
+									type="text"
+									required
+									onChange={(event) => setUsername(event.target.value)}
+								/>
+							</li>
+						</ul>
+					</fieldset>
+					<button type="submit">Enter</button>
+				</form>
+			</section>
+		</motion.div>
 	);
 };
 

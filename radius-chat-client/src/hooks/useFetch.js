@@ -15,7 +15,7 @@ export const useFetch = (url) => {
 			} catch (error) {
 				console.log(error)
 			} finally {
-				setInfoLoaded(false);
+				setInfoLoaded(true);
 			}
 		})();
 	}, [url]);

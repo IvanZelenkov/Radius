@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { RiSendPlaneLine, RiSendPlaneFill } from "react-icons/ri";
+import { motion } from "framer-motion";
 import MessageList from "../../components/MessageList";
 import { useFetch } from "../../hooks/useFetch";
 import { useSocket } from "../../hooks/useSocket";
@@ -11,7 +12,7 @@ const Chat = ({ room, username }) => {
 	const { responseData, infoLoaded } = useFetch("/message/" + room);
 
 	useEffect(() => {
-		if (responseData !== undefined) {
+		if (responseData !== null) {
 			setMessageList([...responseData, ...messageList]);
 		}
 	}, [responseData]);
@@ -49,28 +50,36 @@ const Chat = ({ room, username }) => {
 		);
 	}
 	return (
-		<div className="message_root_div">
-			<span className="room_name">Room: {room}</span>
-			<span className="user_name">Welcome: {username}</span>
-			<div className="message_component">
-				<MessageList username={username} messageList={messageList} />
-				<form className="chat-input" onSubmit={(event) => sendMessage(event)}>
-					<input
-						type="text"
-						value={messageInput}
-						onChange={(event) => setMessageInput(event.target.value)}
-						placeholder="Type a message"
-					/>
-					<button type="submit">
-						{messageInput === "" ? (
-							<RiSendPlaneLine size={25}/>
-						) : (
-							<RiSendPlaneFill color="#2671ff" size={25}/>
-						)}
-					</button>
-				</form>
+		<motion.div exit={{ opacity: 0 }}>
+			<div className="chat-root">
+				<div className="chat-header">
+					<span className="room-name-label">
+						Room:<span className="room-name"> {room}</span>
+					</span>
+					<span className="user-name-label">
+						Username:<span className="user-name"> {username}</span>
+					</span>
+				</div>
+				<div className="chat-component">
+					<MessageList username={username} messageList={messageList} />
+					<form className="chat-input" onSubmit={(event) => sendMessage(event)}>
+						<input
+							type="text"
+							value={messageInput}
+							onChange={(event) => setMessageInput(event.target.value)}
+							placeholder="Type a message"
+						/>
+						<button type="submit" className="send-message-button">
+							{messageInput === "" ? (
+								<RiSendPlaneLine size={25}/>
+							) : (
+								<RiSendPlaneFill color="white" size={25}/>
+							)}
+						</button>
+					</form>
+				</div>
 			</div>
-		</div>
+		</motion.div>
 	);
 };
 

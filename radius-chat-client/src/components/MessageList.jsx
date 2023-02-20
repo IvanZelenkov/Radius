@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 import MessageItem from "./MessageItem";
-import { Box } from "@mui/material";
 
 const MessageList = ({ messageList, username }) => {
 	const messagesEndRef = useRef(null);
@@ -12,12 +11,12 @@ const MessageList = ({ messageList, username }) => {
 	useEffect(scrollToBottom, [messageList]);
 
 	return (
-		<Box className="message_list">
+		<div className="chat-list">
 			{messageList.map((message, idx) => (
 				<MessageItem key={idx} message={message} username={username}/>
 			))}
-			<Box ref={messagesEndRef}/>
-		</Box>
+			<div ref={messagesEndRef}/>
+		</div>
 	);
 };
 
