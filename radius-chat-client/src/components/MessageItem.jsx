@@ -1,26 +1,31 @@
-import { Box, Typography } from "@mui/material";
-
 const MessageItem = ({ message, username }) => {
 	const type = message.messageType.toLowerCase();
-	const self = message.username === username ? "_self" : "";
+	const self = message.username === username ? "-self" : "";
 
 	const timeStampConverter = (time) => {
 		const date = new Date(time);
 		const minute = date.getMinutes();
 		const hour = date.getHours();
-		return `${hour}:${minute}`;
+		if (minute < 10)
+			return `${hour}:0${minute}`;
+		else if (hour < 10)
+			return `0${hour}:${minute}`;
+		else if (minute < 10 && hour < 10)
+			return `0${hour}:0${minute}`;
+		else
+			return `${hour}:${minute}`;
 	};
 
 	return (
-		<Box className={"message_item_" + type + self}>
+		<div className={"chat-item-" + type + self}>
 			{type !== "server" && self === "" && (
-				<Typography className="message_item_username">{message.username}</Typography>
+				<span className="chat-item-username">{message.username}</span>
 			)}
-			<Box className={"message_content_" + type + self}>
-				<Typography className="message_content_value">{message.content}</Typography>
-				<Typography>{timeStampConverter(message.createdDateTime)}</Typography>
-			</Box>
-		</Box>
+			<div className={"chat-content-" + type + self}>
+				<span className="chat-content-value">{message.content}</span>
+				<span>{timeStampConverter(message.createdDateTime)}</span>
+			</div>
+		</div>
 	);
 };
 

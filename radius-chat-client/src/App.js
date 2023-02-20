@@ -1,7 +1,7 @@
 import { useState } from "react";
+import { AnimatePresence } from "framer-motion";
 import Login from "./scenes/login";
 import Chat from "../src/scenes/chat";
-import { Box } from "@mui/material";
 
 function App() {
 	const [username, setUsername] = useState("");
@@ -9,7 +9,7 @@ function App() {
 	const [isLoggedIn, setLoggedIn] = useState(false);
 
 	return (
-		<Box>
+		<AnimatePresence mode='wait'>
 			{!isLoggedIn ? (
 				<Login
 					username={username}
@@ -21,7 +21,7 @@ function App() {
 			) : (
 				<Chat room={room} username={username}/>
 			)}
-		</Box>
+		</AnimatePresence>
 	);
 }
 
