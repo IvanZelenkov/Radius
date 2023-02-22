@@ -1,24 +1,16 @@
 version: '3'
 services:
     radius-chat-server:
-        build: ./radius-chat-server
-        environment:
-            socket-server_host: 172.24.0.1
-            socket-server_port: 8085
-        expose:
-            - 8085
+        build:
+            context: radius-chat-server
+            dockerfile: Dockerfile
         ports:
             - 8085:8085
-        volumes:
-            -   ./radius-chat-server/src:/srv/app/radius-chat-server/src
     radius-chat-client:
-        build: ./radius-chat-client
-        expose:
-            - 3000
+        build:
+            context: radius-chat-client
+            dockerfile: Dockerfile
         ports:
             - 3000:3000
-        volumes:
-            - ./radius-chat-client/src:/srv/app/radius-chat-client/src
-            - ./radius-chat-client/public:/srv/app/radius-chat-client/public
-        links:
-            - radius-chat-server
+        depends_on:
+            -   radius-chat-server
