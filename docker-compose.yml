@@ -6,6 +6,7 @@ services:
             dockerfile: Dockerfile
         ports:
             - 8085:8085
+            - 8080:8080
     radius-chat-client:
         build:
             context: radius-chat-client
