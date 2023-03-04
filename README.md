@@ -1,0 +1,3 @@
+# Radius
+
+```docker compose up```
