@@ -1,16 +1,16 @@
 version: '3'
 services:
     radius-chat-server:
-        build:
-            context: radius-chat-server
-            dockerfile: Dockerfile
+        image: 10112002/radius-chat:server
+        container_name: radius-chat-server
+        restart: unless-stopped
         ports:
             - 8085:8085
             - 8080:8080
     radius-chat-client:
-        build:
-            context: radius-chat-client
-            dockerfile: Dockerfile
+        image: 10112002/radius-chat:client
+        container_name: radius-chat-client
+        restart: unless-stopped
         ports:
             - 3000:3000
         depends_on:
