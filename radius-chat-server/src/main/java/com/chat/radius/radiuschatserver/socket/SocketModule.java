@@ -4,7 +4,7 @@ import com.corundumstudio.socketio.SocketIOServer;
 import com.corundumstudio.socketio.listener.ConnectListener;
 import com.corundumstudio.socketio.listener.DataListener;
 import com.corundumstudio.socketio.listener.DisconnectListener;
-import com.chat.radius.radiuschatserver.constants.Constants;
+import com.chat.radius.radiuschatserver.configuration.constants.Constants;
 import com.chat.radius.radiuschatserver.model.Message;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -35,11 +35,10 @@ public class SocketModule {
             socketService.saveInfoMessage(client, String.format(Constants.WELCOME_MESSAGE, username), room);
             log.info("Socket ID[{}] - Room[{}] - Username[{}] is connected to chat module", client.getSessionId().toString(), room, username);
         };
-
     }
 
     private DisconnectListener onDisconnected() {
-        return client -> {
+        return (client) -> {
             var params = client.getHandshakeData().getUrlParams();
             String room = params.get("room").stream().collect(Collectors.joining());
             String username = params.get("username").stream().collect(Collectors.joining());

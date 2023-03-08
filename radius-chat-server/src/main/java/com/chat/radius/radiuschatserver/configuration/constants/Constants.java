@@ -1,4 +1,4 @@
-package com.chat.radius.radiuschatserver.constants;
+package com.chat.radius.radiuschatserver.configuration.constants;
 
 public class Constants {
     public static final String WELCOME_MESSAGE = "%s joined the chat";
